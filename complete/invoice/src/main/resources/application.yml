@@ -1,0 +1,15 @@
+micronaut:
+    application:
+        name: example.micronaut
+    server:
+        port: 8080
+#tag::vat[]
+vat: 0.21
+#end::vat[]
+aws:
+    lambda:
+        functions:
+            vat:
+                functionName: vies-vat-validator
+                qualifer: vat
+        region: eu-west-3 # Paris Region
