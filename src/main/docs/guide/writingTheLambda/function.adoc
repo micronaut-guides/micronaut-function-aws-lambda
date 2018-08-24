@@ -1,0 +1,20 @@
+Edit `ViesVatValidatorFunction`
+
+[source,java]
+.vies-vat-validator/src/main/java/example/micronaut/ViesVatValidatorFunction.java
+----
+include::{sourceDir}/vies-vat-validator/src/main/java/example/micronaut/ViesVatValidatorFunction.java[]
+----
+<1> Annotate the class with `@FunctionBean`. `vies-vat-validator` is an optional ID of the function which may or may not be used depending on the target platform.
+<2> We implement `java.util.function.Function`. That it is the easiest way to have a parameter with an incoming JSON Payload
+and JSON Payload response.
+<3> Configure a logger for the function. If you use AWS Lambda, you will be able to see this logs in CloudWatch Logs.
+<4> Inject via constructor `VatService`.
+
+Modify `logback.xml` to set `DEBUG` level for package `example.micronaut`.
+
+[source,java]
+.vies-vat-validator/src/main/resources/logback.xml
+----
+include::{sourceDir}/vies-vat-validator/src/main/resources/logback.xml[]
+----

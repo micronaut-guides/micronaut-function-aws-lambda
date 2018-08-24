@@ -8,26 +8,26 @@ import io.reactivex.Flowable;
 import javax.inject.Singleton;
 import java.util.concurrent.Future;
 
-@Singleton
+@Singleton // <1>
 public class VatService {
+    private static final String SERVER = "http://ec.europa.eu";
     private static final String PATH = "/taxation_customs/vies/services/checkVatService";
     private static final String VALID_XML_OPEN_TAG = "<valid>";
     private static final String VALID_XML_CLOSE_TAG = "</valid>";
 
     protected final RxHttpClient client;
 
-    public VatService(@Client("http://ec.europa.eu") RxHttpClient client) {
+    public VatService(@Client("http://ec.europa.eu") RxHttpClient client) { // <2>
         this.client = client;
     }
 
-    public Future<Boolean> validateVat(String memberStateCode, String vatNumberCode) {
-        String soapEnvelope = soapEnvelope(memberStateCode, vatNumberCode);
-        HttpRequest request = HttpRequest.POST("http://ec.europa.eu"+PATH, soapEnvelope)
+    public Future<Boolean> validateVat(String memberStateCode, String vatNumber) {
+        String soapEnvelope = soapEnvelope(memberStateCode, vatNumber);
+        HttpRequest request = HttpRequest.POST(SERVER+PATH, soapEnvelope)  // <3>
                 .contentType("application/soap+xml");
 
         Flowable<String> response = client.retrieve(request);
-        return response.map(str -> parseResponseToBoolean(str) )
-                .toFuture();
+        return response.map(this::parseResponseToBoolean).toFuture();
     }
 
     private Boolean parseResponseToBoolean(String response) {
@@ -39,7 +39,7 @@ public class VatService {
         return Boolean.valueOf(validResponse);
     }
 
-    private String soapEnvelope(String memberStateCode, String vatNumberCode) {
+    private String soapEnvelope(String memberStateCode, String vatNumber) {
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">");
@@ -50,7 +50,7 @@ public class VatService {
         sb.append(memberStateCode);
         sb.append("</urn:countryCode>");
         sb.append("<urn:vatNumber>");
-        sb.append(vatNumberCode);
+        sb.append(vatNumber);
         sb.append("</urn:vatNumber>");
         sb.append("</urn:checkVat>");
         sb.append("</soapenv:Body>");

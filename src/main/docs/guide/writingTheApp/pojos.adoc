@@ -1,0 +1,35 @@
+We expect to get an incoming JSON payload such as:
+
+[source, json]
+----
+{
+"vatNumber": "B86412491",
+"countryCode": "es",
+"lines": [
+    {
+        "count": 2,
+        "productId": "1491950358",
+        "price": 19.99
+    },
+    {
+        "count": 1,
+        "productId": "1680502395",
+        "price": 15
+    },
+]
+}
+----
+
+We create two POJOs to map it.
+
+[source,java]
+.invoice/src/main/java/example/micronaut/Invoice.java
+----
+include::{sourceDir}/invoice/src/main/java/example/micronaut/Invoice.java[]
+----
+
+[source,java]
+.invoice/src/main/java/example/micronaut/InvoiceLine.java
+----
+include::{sourceDir}/invoice/src/main/java/example/micronaut/InvoiceLine.java[]
+----

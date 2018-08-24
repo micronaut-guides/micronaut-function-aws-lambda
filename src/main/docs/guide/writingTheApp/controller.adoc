@@ -1,0 +1,29 @@
+Micronaut’s validation is built on with the standard framework – JSR 380, also known as Bean Validation 2.0.
+
+Hibernate Validator is a reference implementation of the validation API.
+
+Add the next snippet to `build.gradle`
+
+[source,java]
+.invoice/build.gradle
+----
+include::{sourceDir}/invoice/build.gradle[tag=validation]
+----
+
+
+[source,java]
+.invoice/src/main/java/example/micronaut/InvoiceController.java
+----
+include::{sourceDir}/invoice/src/main/java/example/micronaut/InvoiceController.java[]
+----
+
+<1> Add `@Validated` annotation at the class level to any class that requires validation.
+<2> The class is defined as a controller with the `@Controller` annotation mapped to the path `/invoice`.
+<3> Constructor injection of a configuration property.
+<4> Constructor injection of a bean.
+<5> The `@Post` annotation is used to map the `calculateVat` method to all requests to `/invoice/vat` that use an HTTP POST.
+<6> Add `@Valid` to any method parameter which requires validation. Use a POGO supplied as a JSON payload in the request to populate the invoice.
+<7> This invokes the function in AWS Lambda.
+
+
+

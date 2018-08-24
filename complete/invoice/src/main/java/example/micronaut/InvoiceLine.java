@@ -26,6 +26,10 @@ public class InvoiceLine {
         this.price = price;
     }
 
+    public BigDecimal vatPrice(BigDecimal vatPercentage) {
+        return getPrice().multiply(BigDecimal.valueOf(getCount()).multiply(vatPercentage));
+    }
+
     public String getProductId() {
         return productId;
     }

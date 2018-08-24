@@ -1,0 +1,11 @@
+Lets describe the microservices you are going to build through the tutorial.
+
+* `vies-vat-validator` - A Function which you will build with Micronaut and deploy to https://aws.amazon.com/lambda/[AWS Lambda].
+
+* `invoice` - A microservice which  exposes an endpoint to check the Value Added Tax (VAT) which should apply to an invoice. It consumes the `vies-vat-validator` function to ensure the VAT number is valid.
+
+The next diagramm illustrates the flow:
+
+image::microservices-and-lambda.svg[]
+
+include::{commondir}/common-annotationprocessors.adoc[]

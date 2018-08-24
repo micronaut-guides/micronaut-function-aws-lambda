@@ -1,0 +1,21 @@
+gettingStarted: 
+  title: Getting Started
+  requirements: What you will need
+  solution: Solution
+writingTheLambda:
+  title: Writing the Fucntion
+  functionpojos: POJOs
+  soap: SOAP VAT Validation
+  function: Function
+  functiontests: Function Tests
+awslambda:
+  title: Deploy to AWS Lambda
+writingTheApp:
+  title: Writing the App
+  pojos: POJOs
+  functionclient: Call the Function
+  controller: Controller
+  tests: Tests
+runningTheApp: Running the app
+nextSteps:
+  title: Next Steps

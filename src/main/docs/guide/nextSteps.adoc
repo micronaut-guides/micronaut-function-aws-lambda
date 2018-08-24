@@ -1,0 +1,1 @@
+Read more about https://docs.micronaut.io/snapshot/guide/index.html#distributedConfigurationConsul[Consul support] inside Micronaut.

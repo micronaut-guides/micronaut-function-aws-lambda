@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class VatValidationRequest implements Serializable {
     private String memberStateCode;
-    private String vatNumberCode;
+    private String vatNumber;
 
     public VatValidationRequest() {
     }
 
-    public VatValidationRequest(String memberStateCode, String vatNumberCode) {
+    public VatValidationRequest(String memberStateCode, String vatNumber) {
         this.memberStateCode = memberStateCode;
-        this.vatNumberCode = vatNumberCode;
+        this.vatNumber = vatNumber;
     }
 
     public String getMemberStateCode() {
@@ -23,25 +23,11 @@ public class VatValidationRequest implements Serializable {
         this.memberStateCode = memberStateCode;
     }
 
-    public String getVatNumberCode() {
-        return vatNumberCode;
+    public String getVatNumber() {
+        return vatNumber;
     }
 
-    public void setVatNumberCode(String vatNumberCode) {
-        this.vatNumberCode = vatNumberCode;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        VatValidationRequest that = (VatValidationRequest) o;
-        return Objects.equals(memberStateCode, that.memberStateCode) &&
-                Objects.equals(vatNumberCode, that.vatNumberCode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(memberStateCode, vatNumberCode);
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
     }
 }

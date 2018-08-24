@@ -16,9 +16,9 @@ public class ViesVatValidatorFunctionTest {
 
         ViesVatValidatorClient client = server.getApplicationContext().getBean(ViesVatValidatorClient.class);
 
-        assertTrue(client.apply(new VatValidationRequest("es", "B99286353")).getResult());
-        assertTrue(client.apply(new VatValidationRequest("es", "B19280031")).getResult());
-        assertFalse(client.apply(new VatValidationRequest("es", "XXXXXXXXX")).getResult());
+        assertTrue(client.apply(new VatValidationRequest("es", "B99286353")).isValid());
+        assertTrue(client.apply(new VatValidationRequest("es", "B19280031")).isValid());
+        assertFalse(client.apply(new VatValidationRequest("es", "XXXXXXXXX")).isValid());
 
         server.stop();
     }

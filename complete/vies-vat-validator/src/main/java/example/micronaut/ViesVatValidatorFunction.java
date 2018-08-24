@@ -7,29 +7,31 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
-@FunctionBean("vies-vat-validator")
-public class ViesVatValidatorFunction implements Function<VatValidationRequest, VatValidation> {
-    private static final Logger LOG = LoggerFactory.getLogger(ViesVatValidatorFunction.class);
+@FunctionBean("vies-vat-validator") // <1>
+public class ViesVatValidatorFunction
+        implements Function<VatValidationRequest, VatValidation> { // <2>
+    private static final Logger LOG = LoggerFactory.getLogger(ViesVatValidatorFunction.class); // <3>
 
     private final VatService vatService;
 
-    public ViesVatValidatorFunction(VatService vatService) {
+    public ViesVatValidatorFunction(VatService vatService) { // <4>
         this.vatService = vatService;
     }
 
     @Override
     public VatValidation apply(VatValidationRequest request) {
+        final String memberStateCode = request.getMemberStateCode();
+        final String vatNumber = request.getVatNumber();
         if (LOG.isDebugEnabled()) {
-            LOG.debug("validate country: {} vat number: {}", request.getMemberStateCode(), request.getVatNumberCode());
+            LOG.debug("validate country: {} vat number: {}", memberStateCode, vatNumber);
         }
-        Boolean result = false;
+        Boolean valid = false;
         try {
-            result = vatService.validateVat(request.getMemberStateCode(), request.getVatNumberCode()).get();
-        } catch (InterruptedException e) {
+            valid = vatService.validateVat(memberStateCode, vatNumber).get();
 
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
 
         }
-        return new VatValidation(request.getMemberStateCode(), request.getVatNumberCode(), result);
+        return new VatValidation(memberStateCode, vatNumber, valid);
     }
 }

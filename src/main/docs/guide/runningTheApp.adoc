@@ -1,0 +1,41 @@
+The easiest way to configure credentials for invoking the function is to define a ~/.aws/credentials` file`.
+
+[source,bash]
+----
+[default]
+aws_access_key_id=XXXXXXXXXXX
+aws_secret_access_key=XXXXX
+----
+
+include::{commondir}/common-runapp.adoc[]
+
+
+execute:
+
+[source,bash]
+----
+curl -X "POST" "http://localhost:8080/invoice/vat" \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "countryCode": "es",
+  "vatNumber": "B86412491",
+  "lines": [
+    {
+      "count": 2,
+      "price": 19.99,
+      "productId": "1491950358"
+    },
+    {
+      "count": 1,
+      "price": 15,
+      "productId": "1680502395"
+    }
+  ]
+}'
+----
+
+and you will get:
+[source,bash]
+----
+{"vat":11.55}
+----

@@ -1,11 +1,22 @@
+#tag::micronaut[]
 micronaut:
     application:
         name: example.micronaut
     server:
         port: 8080
+    http:
+        client:
+            read-timeout: 10s
+#end::micronaut[]
 #tag::vat[]
-vat: 0.21
+vat:
+    percentage: 0.21
+    scale: 2
+    retry:
+        attempts: 5
+        delay: 5s
 #end::vat[]
+#tag::aws[]
 aws:
     lambda:
         functions:
@@ -13,3 +24,4 @@ aws:
                 functionName: vies-vat-validator
                 qualifer: vat
         region: eu-west-3 # Paris Region
+#end::aws[]

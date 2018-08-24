@@ -1,0 +1,41 @@
+Deploy your Micronaut function to https://aws.amazon.com/lambda/[AWS Lambda].
+
+First, create a Function. I select Paris as the region.
+
+image::step1.png[]
+
+
+Select Java 8 runtime. Name: `vies-vat-validator` and `create a new role form template(s)`. I give the role name
+`lambda_basic_execution`.
+
+image::step2.png[]
+
+Configure tests events:
+
+image::step3.png[]
+
+Create a payload with valid data:
+
+image::step4.png[]
+
+Generate a jar file:
+
+----
+`vies-vat-validator $ ./gradlew shadowJar`
+----
+
+The file is just 12MB ;-)
+
+[source,bash]
+----
+$ du -h build/libs/complete/vies-vat-validator-0.1-all.jar
+ 12M    build/libs/complete/vies-vat-validator-0.1-all.jar
+----
+
+Upload the JAR as illustrated here:
+
+Enter as `Handler` value `io.micronaut.function.aws.MicronautRequestStreamHandler`.
+
+I have allocated just 256Mb and a timeout of 25s.
+
+image::step5.png[]

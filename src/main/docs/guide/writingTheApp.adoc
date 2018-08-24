@@ -1,0 +1,8 @@
+Now, it is time to consume the AWS Lambda function from another micronaut Microservice:
+
+Create the microservice:
+
+[source,bash]
+----
+mn create-app example.micronaut.invoice
+----

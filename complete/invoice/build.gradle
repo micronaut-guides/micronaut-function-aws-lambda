@@ -29,7 +29,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:bom:1.0.0.M4'
+        mavenBom "io.micronaut:bom:$micronautVersion"
     }
 }
 
@@ -52,7 +52,7 @@ dependencies {
 
     //tag::function-client[]
     compile "io.micronaut:function-client"
-    compile 'com.amazonaws:aws-java-sdk-lambda:1.11.285'
+    runtime 'com.amazonaws:aws-java-sdk-lambda:1.11.285'
     //end::function-client[]
 }
 
