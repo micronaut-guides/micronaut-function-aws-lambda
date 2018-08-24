@@ -1,1 +1,1 @@
-Read more about https://docs.micronaut.io/snapshot/guide/index.html#distributedConfigurationConsul[Consul support] inside Micronaut.
+Read more about https://docs.micronaut.io/snapshot/guide/index.html#serverlessFunctions[Serverless Functions] inside Micronaut.
