@@ -12,5 +12,5 @@ public interface VatClient extends VatValidator {
     @Override
     @Named("vies-vat-validator") // <2>
     @Retryable(attempts = "${vat.retry.attempts:3}", delay = "${vat.retry.delay:1s}") // <3>
-    Single<VatValidation> validateVat(String memberStateCode, String vatNumber);
+    Single<VatValidation> validateVat(VatValidationRequest req);
 }

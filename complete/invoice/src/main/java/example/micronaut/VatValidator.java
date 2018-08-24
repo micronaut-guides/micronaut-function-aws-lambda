@@ -4,5 +4,5 @@ import io.reactivex.Single;
 
 public interface VatValidator {
 
-    Single<VatValidation> validateVat(String memberStateCode, String vatNumber);
+    Single<VatValidation> validateVat(VatValidationRequest req);
 }

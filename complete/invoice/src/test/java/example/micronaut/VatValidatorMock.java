@@ -17,7 +17,9 @@ import java.util.List;
 public class VatValidatorMock implements VatValidator {
 
     @Override
-    public Single<VatValidation> validateVat(String memberStateCode, String vatNumber) {
+    public Single<VatValidation> validateVat(VatValidationRequest request) {
+        String memberStateCode = request.getMemberStateCode();
+        String vatNumber = request.getVatNumber();
         List<String> validVatNumbers = Collections.singletonList("B84965375");
         return Single.just(new VatValidation(memberStateCode,
                 vatNumber,

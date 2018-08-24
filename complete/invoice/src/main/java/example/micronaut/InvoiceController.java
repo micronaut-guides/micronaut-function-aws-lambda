@@ -30,7 +30,7 @@ public class InvoiceController {
 
     @Post("/vat") // <5>
     Single<Taxes> calculateVat(@Valid @Body Invoice invoice) {  // <6>
-        return vatValidator.validateVat(invoice.getCountryCode(), invoice.getVatNumber()) // <7>
+        return vatValidator.validateVat(new VatValidationRequest(invoice.getCountryCode(), invoice.getVatNumber())) // <7>
                 .map(vatValidation -> {
                         BigDecimal percentage = vatValidation.isValid() ? vatPercentage : new BigDecimal("0");
                     return new Taxes(invoice.getLines().stream()
