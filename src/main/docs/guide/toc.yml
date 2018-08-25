@@ -8,6 +8,7 @@ writingTheLambda:
   soap: SOAP VAT Validation
   function: Function
   functiontests: Function Tests
+sam: Test with SAM CLI
 awslambda:
   title: Deploy to AWS Lambda
 writingTheApp:

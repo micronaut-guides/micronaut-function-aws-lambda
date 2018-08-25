@@ -1,0 +1,40 @@
+https://github.com/awslabs/aws-sam-cli[AWS SAM CLI] is a CLI tool for local development and testing of Serverless applications.
+
+NOTE: You can skip this section. If you want to complete this section you will need SAM and Docker installed.
+
+To test your Micronuat function with SAM you will first need to https://github.com/awslabs/aws-sam-cli/blob/develop/docs/installation.rst[install SAM].
+
+Then create a file `event.json`. We will use it as the stimulus for the SAM cli invocation.
+
+[source,json]
+.vies-vat-validator/event.json
+----
+include::{sourceDir}/vies-vat-validator/event.json[]
+----
+
+Next create a https://github.com/awslabs/serverless-application-model[AWS SAM template] file:
+
+[source,json]
+.vies-vat-validator/template.yaml
+----
+include::{sourceDir}/vies-vat-validator/template.yaml[]
+----
+
+With that in place, you can invoke your function locally:
+
+[source, bash]
+----
+$ sam local invoke "ViesVatValidatorFunction" -e event.json
+2018-08-25 08:29:05 Invoking io.micronaut.function.aws.MicronautRequestStreamHandler (java8)
+2018-08-25 08:29:05 Found credentials in shared credentials file: ~/.aws/credentials
+2018-08-25 08:29:05 Decompressing /Users/sdelamo/Developer/micronaut-guides/micronaut-function-aws-lambda/complete/vies-vat-validator/build/libs/complete/vies-vat-validator-0.1-all.jar
+
+Fetching lambci/lambda:java8 Docker container image......
+2018-08-25 08:29:09 Mounting /private/var/folders/pb/dx1ms2_92_g54v9jvzv7k4hc0000gn/T/tmpvxc4Vb as /var/task:ro inside runtime container
+START RequestId: e32a669c-bb51-4079-a1a1-781c2f144e4e Version: $LATEST
+06:29:14.143 [main] DEBUG e.micronaut.ViesVatValidatorFunction - validate country: es vat number: B86412491
+END RequestId: e32a669c-bb51-4079-a1a1-781c2f144e4e
+REPORT RequestId: e32a669c-bb51-4079-a1a1-781c2f144e4e	Duration: 5627.70 ms	Billed Duration: 5700 ms	Memory Size: 128 MB	Max Memory Used: 9 MB
+
+{"memberStateCode":"es","vatNumber":"B86412491","valid":true}
+----
