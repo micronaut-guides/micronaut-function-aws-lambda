@@ -1,6 +1,7 @@
 package example.micronaut;
 
 import io.micronaut.function.client.FunctionClient;
+import io.micronaut.http.annotation.Body;
 import io.reactivex.Single;
 
 import javax.inject.Named;
@@ -9,6 +10,6 @@ import javax.inject.Named;
 public interface ViesVatValidatorClient {
 
     @Named("vies-vat-validator")
-    VatValidation apply(VatValidationRequest request);
+    VatValidation apply(@Body VatValidationRequest request);
 
 }
