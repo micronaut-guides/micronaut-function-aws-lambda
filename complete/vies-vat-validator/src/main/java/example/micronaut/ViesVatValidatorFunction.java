@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 @FunctionBean("vies-vat-validator") // <1>
 public class ViesVatValidatorFunction
-        implements Function<VatValidationRequest, Single<VatValidation>> { // <2>
+        implements Function<VatValidationRequest, VatValidation> { // <2>
     private static final Logger LOG = LoggerFactory.getLogger(ViesVatValidatorFunction.class); // <3>
 
     private final VatService vatService;
@@ -21,13 +21,14 @@ public class ViesVatValidatorFunction
     }
 
     @Override
-    public Single<VatValidation> apply(VatValidationRequest request) {
+    public VatValidation apply(VatValidationRequest request) {
         final String memberStateCode = request.getMemberStateCode();
         final String vatNumber = request.getVatNumber();
         if (LOG.isDebugEnabled()) {
             LOG.debug("validate country: {} vat number: {}", memberStateCode, vatNumber);
         }
         return vatService.validateVat(memberStateCode, vatNumber)
-                    .map(valid -> new VatValidation(memberStateCode, vatNumber, valid));
+                    .map(valid -> new VatValidation(memberStateCode, vatNumber, valid))
+                    .blockingGet();
     }
 }
