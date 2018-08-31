@@ -4,6 +4,7 @@ import io.micronaut.http.HttpRequest;
 import io.micronaut.http.client.Client;
 import io.micronaut.http.client.RxHttpClient;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 import javax.inject.Singleton;
 import java.util.concurrent.Future;
@@ -21,13 +22,13 @@ public class VatService {
         this.client = client;
     }
 
-    public Future<Boolean> validateVat(String memberStateCode, String vatNumber) {
+    public Single<Boolean> validateVat(String memberStateCode, String vatNumber) {
         String soapEnvelope = soapEnvelope(memberStateCode, vatNumber);
         HttpRequest request = HttpRequest.POST(SERVER+PATH, soapEnvelope)  // <3>
                 .contentType("application/soap+xml");
 
-        Flowable<String> response = client.retrieve(request);
-        return response.map(this::parseResponseToBoolean).toFuture();
+        Flowable<String> response = client.retrieve(request, String.class);
+        return response.firstOrError().map(this::parseResponseToBoolean);
     }
 
     private Boolean parseResponseToBoolean(String response) {
