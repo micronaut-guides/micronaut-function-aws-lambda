@@ -8,6 +8,11 @@ micronaut:
         client:
             read-timeout: 10s
 #end::micronaut[]
+#tag::awsapigateway[]
+awsapigateway:
+    stage: "beta"
+    vatinvokeurl: "https://8ah5p89xof.execute-api.eu-west-3.amazonaws.com"
+#end::awsapigateway[]
 #tag::vat[]
 vat:
     percentage: 0.21

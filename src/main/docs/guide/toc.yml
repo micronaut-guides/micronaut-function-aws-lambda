@@ -18,5 +18,8 @@ writingTheApp:
   controller: Controller
   tests: Tests
 runningTheApp: Running the app
+awsApiGateway:
+  title: AWS API Gateway
+  awsApiGatewayUrlInMicronaut: Consume API Gateway URL
 nextSteps:
   title: Next Steps

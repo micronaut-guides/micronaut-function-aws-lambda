@@ -1,0 +1,22 @@
+Define the invoke url as a configuration property:
+
+[source,java]
+.invoice/src/main/resources/application.yml
+----
+include::{sourceDir}/invoice/src/main/resources/application.yml[tag=awsapigateway]
+----
+
+Create a https://docs.micronaut.io/snapshot/guide/index.html#clientAnnotation[Micronaut declarative HTTP Client] to consume that endpoint:
+
+[source,java]
+.invoice/src/main/java/example/micronaut/AwsApiGatewayVatClient.java
+----
+include::{sourceDir}/invoice/src/main/java/example/micronaut/AwsApiGatewayVatClient.java[]
+----
+
+<1> Given a common interface called `VatValidator`
+that is implemented by multiple classes (`AwsApiGatewayVatClient`, `VatClient`) you can boost which bean is injection with https://docs.micronaut.io/snapshot/guide/index.html#_primary_and_secondary_beans[@Primary].
+<2> You can interpolate configuration properties in a `@Client` definition.
+<3> You can remove a bean from the test classpath easily.
+<4> Define this as a POST request and interpolate a configuration property to define the path.
+

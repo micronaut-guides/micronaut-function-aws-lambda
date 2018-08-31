@@ -1,0 +1,38 @@
+____
+https://aws.amazon.com/api-gateway/[Amazon API Gateway] is a fully managed service that makes it easy for developers to create, publish,
+maintain, monitor, and secure APIs at any scale.
+____
+
+A common use case of AWS API Gateway is to create HTTP endpoints which expose functions deploy to AWS Lambda.
+
+Let's create an endpoint which exposes the Micronaut function we deployed to AWS Lambda.
+
+Create a new AWS Gateway API
+
+image::awsapigateway1.png[]
+
+Create a POST method, with integration type `Lambda Function` and enter the Lambda function name you used.
+
+image::awsapigateway2.png[]
+
+Create a Model for the incoming request to the method.
+
+image::awsapigateway3.png[]
+
+Edit the POST Method request and configure the Model as the content type.
+
+image::awsapigateway4.png[]
+
+You will be able to test the API method and its integration with the AWS Lambda function.
+
+image::awsapigateway5.png[]
+
+Deploy the API to create an endpoint which we can invoke with an HTTP request:
+
+image::awsapigateway6.png[]
+
+image::awsapigateway7.png[]
+
+You will get an invoke URL to use:
+
+image::awsapigateway8.png[]
