@@ -23,5 +23,7 @@ runningTheApp: Running the app
 awsApiGateway:
   title: AWS API Gateway
   awsApiGatewayUrlInMicronaut: Consume API Gateway URL
+graal:
+  title: Running the Function on Graal Native Image
 nextSteps:
   title: Next Steps

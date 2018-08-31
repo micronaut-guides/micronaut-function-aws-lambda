@@ -1,2 +1,3 @@
 include 'complete/invoice'
 include 'complete/vies-vat-validator'
+include 'complete/vies-vat-validator-graal'
