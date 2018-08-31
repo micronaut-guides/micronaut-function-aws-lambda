@@ -29,6 +29,6 @@ public class ViesVatValidatorFunction
         }
         return vatService.validateVat(memberStateCode, vatNumber)
                     .map(valid -> new VatValidation(memberStateCode, vatNumber, valid))
-                    .blockingGet();
+                    .blockingGet(); // <5>
     }
 }

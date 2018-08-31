@@ -10,6 +10,7 @@ include::{sourceDir}/vies-vat-validator/src/main/java/example/micronaut/ViesVatV
 and JSON Payload response.
 <3> Configure a logger for the function. If you use AWS Lambda, you will be able to see this logs in CloudWatch Logs.
 <4> Inject via constructor `VatService`.
+<5> We cannot return a non-blocking type due to AWS Lambda https://docs.aws.amazon.com/lambda/latest/dg/java-programming-model-req-resp.html[Handler Input/Output supported Types].
 
 Modify `logback.xml` to set `DEBUG` level for package `example.micronaut`.
 
