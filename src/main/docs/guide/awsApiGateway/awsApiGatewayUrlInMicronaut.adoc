@@ -1,10 +1,12 @@
-Define the invoke url as a configuration property:
+Although we are not using a discovery server like Consul or Eureka, you can https://docs.micronaut.io/latest/guide/index.html#_client_specific_configuration[manually configure service discovery] in application.yml:
 
 [source,java]
 .invoice/src/main/resources/application.yml
 ----
 include::{sourceDir}/invoice/src/main/resources/application.yml[tag=awsapigateway]
 ----
+
+<1> Configure service name, we will use name in `@Client` annotation.
 
 Create a https://docs.micronaut.io/snapshot/guide/index.html#clientAnnotation[Micronaut declarative HTTP Client] to consume that endpoint:
 
@@ -16,7 +18,7 @@ include::{sourceDir}/invoice/src/main/java/example/micronaut/AwsApiGatewayVatCli
 
 <1> Given a common interface called `VatValidator`
 that is implemented by multiple classes (`AwsApiGatewayVatClient`, `VatClient`) you can boost which bean is injection with https://docs.micronaut.io/snapshot/guide/index.html#_primary_and_secondary_beans[@Primary].
-<2> You can interpolate configuration properties in a `@Client` definition.
+<2> Use the service id you defined in `micronaut.http.services` configuration.
 <3> You can remove a bean from the test classpath easily.
 <4> Define this as a POST request and interpolate a configuration property to define the path.
 
