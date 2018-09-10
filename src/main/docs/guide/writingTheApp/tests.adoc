@@ -1,6 +1,6 @@
 We don't want the real AWS Lambda function executed in our tests.
 
-Thus, create a bean to replace the function in the test phase:
+Thus, create a bean to provide an implementation of `VatValidator` in the test phase:
 
 [source,java]
 .invoice/src/test/java/example/micronaut/VatValidatorMock.java

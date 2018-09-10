@@ -1,6 +1,5 @@
 package example.micronaut;
 
-import io.micronaut.context.annotation.Replaces;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.env.Environment;
 import io.reactivex.Single;
@@ -9,7 +8,6 @@ import javax.inject.Singleton;
 import java.util.Collections;
 import java.util.List;
 
-@Replaces(VatClient.class)
 @Requires(env = Environment.TEST)
 @Singleton
 public class VatValidatorMock implements VatValidator {
