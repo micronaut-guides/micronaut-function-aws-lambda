@@ -37,7 +37,7 @@ Once you have installed the SDK you should make the svm dependency available via
 mvn install:install-file -Dfile=${JAVA_HOME}/jre/lib/svm/builder/svm.jar -DgroupId=com.oracle.substratevm -DartifactId=svm -Dversion=GraalVM-1.0.0-rc6 -Dpackaging=jar
 ----
 
-=== 3. Update applications dependencies
+=== 3. Add Graal dependencies
 
 Add the following to `build.gradle`:
 
@@ -80,7 +80,7 @@ Writing reflect.json file to destination: build/reflect.json
 Run the `native-image` command. Create a bash script to encapsulate the execution of this command:
 
 [source,bash]
-.vies-vat-validator/build-native-image.sh
+.vies-vat-validator-graal/build-native-image.sh
 ----
 include::{sourceDir}/vies-vat-validator-graal/build-native-image.sh[]
 ----
