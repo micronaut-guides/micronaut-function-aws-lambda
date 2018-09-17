@@ -1,6 +1,6 @@
 include 'complete/invoice'
 include 'complete/vies-vat-validator'
-if(System.getenv("TRAVIS")) {
+if(System.getenv("TRAVIS") == null) {
     include 'complete/vies-vat-validator-graal'
 }
 
