@@ -1,3 +1,6 @@
 include 'complete/invoice'
 include 'complete/vies-vat-validator'
-include 'complete/vies-vat-validator-graal'
+if(System.getenv("TRAVIS")) {
+    include 'complete/vies-vat-validator-graal'
+}
+
