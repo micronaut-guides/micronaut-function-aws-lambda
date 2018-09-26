@@ -1,13 +1,12 @@
 package example.micronaut;
 
 import io.micronaut.http.HttpRequest;
-import io.micronaut.http.client.Client;
 import io.micronaut.http.client.RxHttpClient;
+import io.micronaut.http.client.annotation.Client;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 import javax.inject.Singleton;
-import java.util.concurrent.Future;
 
 @Singleton // <1>
 public class VatService {
