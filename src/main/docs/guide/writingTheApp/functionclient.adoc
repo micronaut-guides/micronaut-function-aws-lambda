@@ -53,7 +53,7 @@ include::{sourceDir}/invoice/src/main/java/example/micronaut/VatClient.java[]
 ----
 
 <1> The FunctionClient annotation allows applying introduction advise to an interface such that methods defined by the interface become invokers of remote functions configured by the application.
-<4> You can remove a bean from the test classpath easily.
+<2> You can remove a bean from the test classpath easily.
 <3> Use the function name `vies-vat-validator`
 <4> AWS Lambda functions may take time to warm up. Thus, failure is something you have to plan for and it is pretty common to want to attempt to retry an operation if it fails.
 With https://docs.micronaut.io/snapshot/guide/index.html#retry[Micronaut Retry] you can try again easily.
