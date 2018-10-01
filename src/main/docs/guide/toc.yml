@@ -2,8 +2,6 @@ gettingStarted:
   title: Getting Started
   requirements: What you will need
   solution: Solution
-usingSnapshotVersion:
-  title: Using Snapshot Version
 writingTheLambda:
   title: Writing the Function
   functionpojos: POJOs
