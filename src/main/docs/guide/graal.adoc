@@ -22,8 +22,8 @@ The following steps were required:
 
 [source, bash]
 ----
-sdk install java 1.0.0-rc6-graal
-sdk use java 1.0.0-rc6-graal
+sdk install java 1.0.0-rc7-graal
+sdk use java 1.0.0-rc7-graal
 ----
 
 NOTE: You may need to be in the latest version of http://sdkman.io[sdkman.io] to see Graal as a java candidate.
@@ -34,7 +34,7 @@ Once you have installed the SDK you should make the svm dependency available via
 
 [source, bash]
 ----
-mvn install:install-file -Dfile=${JAVA_HOME}/jre/lib/svm/builder/svm.jar -DgroupId=com.oracle.substratevm -DartifactId=svm -Dversion=GraalVM-1.0.0-rc6 -Dpackaging=jar
+mvn install:install-file -Dfile=${JAVA_HOME}/jre/lib/svm/builder/svm.jar -DgroupId=com.oracle.substratevm -DartifactId=svm -Dversion=GraalVM-1.0.0-rc7 -Dpackaging=jar
 ----
 
 === 3. Add Graal dependencies
@@ -70,7 +70,7 @@ Run the next command to to write out a `reflect.json`; a file computing the clas
 
 [source, bash]
 ----
-echo '{"memberStateCode":"es", "vatNumber":"B99286353"}' | java -Dgraalvm.class.analysis=true -jar build/libs/vies-vat-validator-0.1-all.jar
+java -cp build/libs/vies-vat-validator-0.1-all.jar io.micronaut.graal.reflect.GraalClassLoadingAnalyzer
 ----
 
 `reflect.json` file is written to destination: `build/reflect.json`

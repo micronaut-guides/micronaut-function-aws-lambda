@@ -1,1 +1,11 @@
-native-image --class-path build/libs/vies-vat-validator-0.1-all.jar -H:ReflectionConfigurationFiles=build/reflect.json -H:EnableURLProtocols=http -H:IncludeResources="application.yml|META-INF/services/*.*" -H:Name=vies-vat-validator --delay-class-initialization-to-runtime=io.netty.handler.codec.http.HttpObjectEncoder -H:Class=io.micronaut.function.executor.FunctionApplication -H:+ReportUnsupportedElementsAtRuntime -H:+AllowVMInspection
+native-image \
+	--class-path build/libs/vies-vat-validator-0.1-all.jar \
+	-H:ReflectionConfigurationFiles=build/reflect.json \
+	-H:EnableURLProtocols=http \
+	-H:IncludeResources="application.yml|META-INF/services/*.*" \
+	-H:Name=vies-vat-validator \
+	--delay-class-initialization-to-runtime=io.netty.handler.codec.http.HttpObjectEncoder \
+	--rerun-class-initialization-at-runtime='sun.security.jca.JCAUtil$CachedSecureRandomHolder,javax.net.ssl.SSLContext' \
+	-H:Class=io.micronaut.function.executor.FunctionApplication \
+	-H:+ReportUnsupportedElementsAtRuntime \
+	-H:+AllowVMInspection

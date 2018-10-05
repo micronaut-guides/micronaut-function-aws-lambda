@@ -55,7 +55,7 @@ dependencies {
     testCompile "org.hamcrest:hamcrest-all:1.3"
 
     //tag::graaldependencies[]
-    compileOnly 'com.oracle.substratevm:svm:GraalVM-1.0.0-rc6'
+    compileOnly 'com.oracle.substratevm:svm:GraalVM-1.0.0-rc7'
     runtimeOnly "io.micronaut:graal"
     //end::graaldependencies[]
 
