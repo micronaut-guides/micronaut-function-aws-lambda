@@ -1,4 +1,5 @@
 native-image \
+    --no-server \
 	--class-path build/libs/vies-vat-validator-0.1-all.jar \
 	-H:ReflectionConfigurationFiles=build/reflect.json \
 	-H:EnableURLProtocols=http \
