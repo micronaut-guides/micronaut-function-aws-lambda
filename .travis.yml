@@ -12,8 +12,8 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 script:
-- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./travis-build-pr.sh; fi
-- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./travis-build.sh; fi
+- ./travis-build-pr.sh
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then bash ./travis-build.sh; fi
 env:
   global:
   - secure: XoyvnsN30AzcOF4Tx2rXLmFXTixNwM53TTKKV4iXnoLU/E+aIyQ1TjOvPiJTpF1WPHGAgqvQdy0qvxErIjSLBDfbmItkMhdOLkIXEW33GT6zLfqwqP4+quRYNN6bF7lUhmu9vdi8m5hWrhzxigPAGlxM/Fwppxo4Sr6iDeuNxbkJ+6lAK1he7wA7V0n6TOIXJV7hPCf4pBIMPWMQ45UxYcN2oBgNzU3664XEwoOjjx1xQKctlSyzLxf3xhKtEhELkF0eGMx24IcCXaXFEQTpFZNcOuwPGt+wujTivEgPu7zqCWbcvlC9G4iVtdzUoOkm9wnu5dDgE3fzyTFPW+gM+AtB5ddrGWqSObOJDDYsjsaMuHuagAwE4jyBfcssrT2yi8ymlE3jGEoxYBkA1pv90w8e5S4BQMInk/oGYQrGmYJ1nSUppTE5Kpcm2qQJq6uoRVcVMHR2/NQIdOe2QKwHcWbrkThFOCM4fJARyhdNj8Lz5jZ4IoYzCmHPtUFcK3t5PZpkDETZLpcGCyXwHAtt0kjED0G/gtJY78Iu8v4C0zd32wzJno8PRlYO5bfxEPsJ0gm8w8Pa1r9Bvnf7C0sNXzTQHOmDHgpZTYR+7cpmsTWczgMSXqycWmLV492k8bo2FDKuYjtRRfEw9QRCQnBY4+6cz4RJTMGOtluHpOOXVzQ=
