@@ -4,6 +4,9 @@ buildscript {
         mavenCentral()
         mavenLocal()
     }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+    }
 }
 
 plugins {
