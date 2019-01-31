@@ -96,9 +96,9 @@ The native function is now build. You can run it:
 complete/vies-vat-validator-graal $ time echo '{"memberStateCode":"es", "vatNumber":"B99286353"}' | ./vies-vat-validator
 10:22:30.003 [main] DEBUG e.micronaut.ViesVatValidatorFunction - validate country: es vat number: B99286353
 {"valid":true,"memberStateCode":"es","vatNumber":"B99286353"}
-real	0m1.475s
-user	0m0.017s
-sys	    0m0.034s
+real    0m1.475s
+user    0m0.017s
+sys     0m0.034s
 ```
 ----
 
@@ -106,12 +106,12 @@ For comparision, execute with the jar file we generated in the previous section 
 
 [source, bash]
 ----
-complete/vies-vat-validator $ time echo '{"memberStateCode":"es", "vatNumber":"B99286353"}' | java -jar build/libs/complete/vies-vat-validator-0.1-all.jar
+complete/vies-vat-validator $ time echo '{"memberStateCode":"es", "vatNumber":"B99286353"}' | java -jar build/libs/vies-vat-validator-0.1-all.jar
 10:25:52.136 [main] DEBUG e.micronaut.ViesVatValidatorFunction - validate country: es vat number: B99286353
 {"memberStateCode":"es","vatNumber":"B99286353","valid":true}
-real	0m3.261s
-user	0m8.430s
-sys	    0m0.723s
+real    0m3.261s
+user    0m8.430s
+sys     0m0.723s
 ----
 
 
