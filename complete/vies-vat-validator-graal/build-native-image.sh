@@ -4,7 +4,7 @@ native-image --no-server \
              -H:EnableURLProtocols=http \
              -H:IncludeResources="logback.xml|application.yml|META-INF/services/*.*" \
              -H:Name=vies-vat-validator \
-             -H:Class=example.micronaut.Application \
+             -H:Class=io.micronaut.function.executor.FunctionApplication \
              -H:+ReportUnsupportedElementsAtRuntime \
              -H:+AllowVMInspection \
              -H:-UseServiceLoaderFeature \
