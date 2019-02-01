@@ -45,5 +45,5 @@ final class Target_io_netty_util_internal_shaded_org_jctools_util_UnsafeRefArray
     public static int REF_ELEMENT_SHIFT;
 }
 
-public class FunctionSubstitutions {
+public class MicronautSubstitutions {
 }

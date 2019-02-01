@@ -22,60 +22,51 @@ The following steps were required:
 
 [source, bash]
 ----
-sdk install java 1.0.0-rc7-graal
-sdk use java 1.0.0-rc7-graal
+sdk install java 1.0.0-rc-11-grl
+sdk use java 1.0.0-rc-11-grl
 ----
 
 NOTE: You may need to be in the latest version of http://sdkman.io[sdkman.io] to see Graal as a java candidate.
 
-=== 2. Install the SVM Dependency
-
-Once you have installed the SDK you should make the svm dependency available via your local Maven cache. The easiest way to do this is via Maven’s install command:
-
-[source, bash]
-----
-mvn install:install-file -Dfile=${JAVA_HOME}/jre/lib/svm/builder/svm.jar -DgroupId=com.oracle.substratevm -DartifactId=svm -Dversion=GraalVM-1.0.0-rc7 -Dpackaging=jar
-----
-
-=== 3. Add Graal dependencies
+=== 2. Add Graal dependencies
 
 Add the following to `build.gradle`:
 
 [source,groovy]
 .vies-vat-validator/build.gradle
 ----
-include::{sourceDir}/vies-vat-validator-graal/build.gradle[tag=graaldependencies]
+include::{sourceDir}/vies-vat-validator-graal/build.gradle[tag=graaldependencies,indent=0]
 ----
 
-=== 4. Add Graal Substitutions
+=== 3. Add Graal Substitutions
 
 Create `src/main/java/example/micronaut/MicronautSubstitutions.java`; a file needed to recompute Netty and Caffeine’s use of Unsafe.
 
-[source,groovy]
-.vies-vat-validator-graal/src/main/java/example/micronaut/FunctionSubstitutions.java
+[source,java]
+.vies-vat-validator-graal/src/main/java/example/micronaut/MicronautSubstitutions.java
 ----
-include::{sourceDir}/vies-vat-validator-graal/src/main/java/example/micronaut/FunctionSubstitutions.java[]
+include::{sourceDir}/vies-vat-validator-graal/src/main/java/example/micronaut/MicronautSubstitutions.java[]
 ----
 
-=== 5. Build the Function
+=== 4. Build the Function
 
-[source, groovy]
+[source,bash]
 ----
 vies-vat-validator-graal $ ./gradlew assemble
 ----
 
-=== 6. Generate a `reflect.json` file
+=== 5. Generate a `reflect.json` file
 
 Run the next command to to write out a `reflect.json`; a file computing the classloading requirements of the application.
 
-[source, bash]
+[source,bash]
 ----
-java -cp build/libs/vies-vat-validator-0.1-all.jar io.micronaut.graal.reflect.GraalClassLoadingAnalyzer
+$ java -cp build/libs/vies-vat-validator-0.1-all.jar io.micronaut.graal.reflect.GraalClassLoadingAnalyzer
 ----
 
 `reflect.json` file is written to destination: `build/reflect.json`
 
-=== 7. Build the Graal Native Image
+=== 6. Build the Graal Native Image
 
 Run the `native-image` command. Create a bash script to encapsulate the execution of this command:
 
@@ -87,11 +78,11 @@ include::{sourceDir}/vies-vat-validator-graal/build-native-image.sh[]
 
 `vies-vat-validator-graal $ ./build-native-image.sh`
 
-=== 8. Run the Native Function
+=== 7. Run the Native Function
 
 The native function is now build. You can run it:
 
-[source, bash]
+[source,bash]
 ----
 complete/vies-vat-validator-graal $ time echo '{"memberStateCode":"es", "vatNumber":"B99286353"}' | ./vies-vat-validator
 10:22:30.003 [main] DEBUG e.micronaut.ViesVatValidatorFunction - validate country: es vat number: B99286353
@@ -104,7 +95,7 @@ sys     0m0.034s
 
 For comparision, execute with the jar file we generated in the previous section of this tutorial:
 
-[source, bash]
+[source,bash]
 ----
 complete/vies-vat-validator $ time echo '{"memberStateCode":"es", "vatNumber":"B99286353"}' | java -jar build/libs/vies-vat-validator-0.1-all.jar
 10:25:52.136 [main] DEBUG e.micronaut.ViesVatValidatorFunction - validate country: es vat number: B99286353
