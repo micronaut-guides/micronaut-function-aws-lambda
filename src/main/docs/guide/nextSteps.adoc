@@ -1,3 +1,3 @@
-Read more about https://docs.micronaut.io/snapshot/guide/index.html#serverlessFunctions[Serverless Functions] inside Micronaut.
+Read more about https://docs.micronaut.io/latest/guide/index.html#serverlessFunctions[Serverless Functions] inside Micronaut.
 
-Learn more https://docs.micronaut.io/snapshot/guide/index.html#graal[Micronaut for GraalVM] integration.
+Learn more https://docs.micronaut.io/latest/guide/index.html#graal[Micronaut for GraalVM] integration.
