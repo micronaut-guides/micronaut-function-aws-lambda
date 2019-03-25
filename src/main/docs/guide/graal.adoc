@@ -22,8 +22,8 @@ The following steps were required:
 
 [source, bash]
 ----
-sdk install java 1.0.0-rc-13-grl
-sdk use java 1.0.0-rc-13-grl
+sdk install java 1.0.0-rc-14-grl
+sdk use java 1.0.0-rc-14-grl
 ----
 
 NOTE: You may need to be in the latest version of http://sdkman.io[sdkman.io] to see Graal as a java candidate.
@@ -33,50 +33,41 @@ NOTE: You may need to be in the latest version of http://sdkman.io[sdkman.io] to
 Add the following to `build.gradle`:
 
 [source,groovy]
-.vies-vat-validator/build.gradle
+.vies-vat-validator-graal/build.gradle
 ----
 include::{sourceDir}/vies-vat-validator-graal/build.gradle[tag=graaldependencies,indent=0]
 ----
 
-=== 3. Add Graal Substitutions
+=== 3. Create `native-image.properties` file
 
-Create `src/main/java/example/micronaut/MicronautSubstitutions.java`; a file needed to recompute Netty and Caffeine’s use of Unsafe.
+Create the following file:
 
-[source,java]
-.vies-vat-validator-graal/src/main/java/example/micronaut/MicronautSubstitutions.java
+[source]
+.vies-vat-validator-graal/src/main/resources/META-INF/native-image/example.micronaut/vies-vat-validator-application/native-image.properties
 ----
-include::{sourceDir}/vies-vat-validator-graal/src/main/java/example/micronaut/MicronautSubstitutions.java[]
+include::{sourceDir}/vies-vat-validator-graal/src/main/resources/META-INF/native-image/example.micronaut/vies-vat-validator-application/native-image.properties[]
 ----
 
-=== 4. Build the Function
+=== 4. Annotate POJO
+
+Annotate `VatValidationRequest.java` with `@Introspected` to generate compile time Bean introspection metadata.
+
+
+=== 5. Build the Function
 
 [source,bash]
 ----
 vies-vat-validator-graal $ ./gradlew assemble
 ----
 
-=== 5. Generate a `reflect.json` file
-
-Run the next command to to write out a `reflect.json`; a file computing the classloading requirements of the application.
-
-[source,bash]
-----
-$ java -cp build/libs/vies-vat-validator-0.1-all.jar io.micronaut.graal.reflect.GraalClassLoadingAnalyzer
-----
-
-`reflect.json` file is written to destination: `build/reflect.json`
-
 === 6. Build the Graal Native Image
 
-Run the `native-image` command. Create a bash script to encapsulate the execution of this command:
+Run the `native-image` command:
 
 [source,bash]
-.vies-vat-validator-graal/build-native-image.sh
 ----
-include::{sourceDir}/vies-vat-validator-graal/build-native-image.sh[]
+native-image --no-server --class-path build/libs/vies-vat-validator-0.1-all.jar
 ----
-
-`vies-vat-validator-graal $ ./build-native-image.sh`
 
 === 7. Run the Native Function
 

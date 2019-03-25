@@ -56,7 +56,7 @@ dependencies {
 
     //tag::graaldependencies[]
     compileOnly "com.oracle.substratevm:svm"
-    runtimeOnly "io.micronaut:micronaut-graal"
+    annotationProcessor "io.micronaut:micronaut-graal"
     //end::graaldependencies[]
 
     //tag::testdependencies[]

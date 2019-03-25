@@ -1,7 +1,6 @@
 package example.micronaut;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class VatValidation extends VatValidationRequest implements Serializable {
     private Boolean valid;
