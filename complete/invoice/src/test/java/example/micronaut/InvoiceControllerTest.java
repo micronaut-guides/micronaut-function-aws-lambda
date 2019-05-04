@@ -26,7 +26,7 @@ public class InvoiceControllerTest {
     EmbeddedServer server; // <3>
 
     @Test
-    public void testBooksController() {
+    public void testInvoiceController() {
 
         VatValidator bean = server.getApplicationContext().getBean(VatValidator.class);
         assertTrue(bean instanceof VatValidatorMock); // <4>
