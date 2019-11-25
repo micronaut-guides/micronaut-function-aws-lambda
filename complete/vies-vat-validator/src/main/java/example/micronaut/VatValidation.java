@@ -1,8 +1,10 @@
 package example.micronaut;
 
-import java.io.Serializable;
-import java.util.Objects;
+import io.micronaut.core.annotation.Introspected;
 
+import java.io.Serializable;
+
+@Introspected
 public class VatValidation extends VatValidationRequest implements Serializable {
     private Boolean valid;
 

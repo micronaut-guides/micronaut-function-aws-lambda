@@ -1,11 +1,14 @@
 package example.micronaut;
 
+import io.micronaut.core.annotation.Introspected;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Introspected
 public class InvoiceLine {
     @NotNull
     @NotBlank
@@ -18,7 +21,8 @@ public class InvoiceLine {
     @Positive
     private BigDecimal price;
 
-    public InvoiceLine() {}
+    public InvoiceLine() {
+    }
 
     public InvoiceLine(String productId, Integer count, BigDecimal price) {
         this.productId = productId;

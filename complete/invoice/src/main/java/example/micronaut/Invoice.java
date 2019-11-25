@@ -1,11 +1,14 @@
 package example.micronaut;
 
-import java.util.List;
+import io.micronaut.core.annotation.Introspected;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
+@Introspected
 public class Invoice {
 
     @NotNull
@@ -20,7 +23,6 @@ public class Invoice {
     private List<InvoiceLine> lines;
 
     public Invoice() {
-
     }
 
     public Invoice(@NotNull @NotBlank String vatNumber,

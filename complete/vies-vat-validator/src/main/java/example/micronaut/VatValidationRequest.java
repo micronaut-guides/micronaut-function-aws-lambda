@@ -1,7 +1,10 @@
 package example.micronaut;
 
+import io.micronaut.core.annotation.Introspected;
+
 import java.io.Serializable;
 
+@Introspected
 public class VatValidationRequest implements Serializable {
     private String memberStateCode;
     private String vatNumber;
