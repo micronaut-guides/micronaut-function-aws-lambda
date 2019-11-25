@@ -1,82 +1,81 @@
-buildscript {
-    repositories {
-        maven { url "https://plugins.gradle.org/m2/" }
-        mavenCentral()
-        mavenLocal()
-    }
-    dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
-    }
-}
-
 plugins {
-    id "io.spring.dependency-management" version "1.0.6.RELEASE"
-    id "com.github.johnrengelman.shadow" version "4.0.2"
-    id "jp.classmethod.aws.lambda" version "0.38"
-    id "net.ltgt.apt-eclipse" version "0.18"
-    id "net.ltgt.apt-idea" version "0.18"
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "jp.classmethod.aws.lambda" version "0.39"
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "application"
 }
 
 version "0.1"
 group "example.micronaut"
 
-apply plugin:"application"
-apply plugin:"java"
-
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven { url "https://jcenter.bintray.com" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    jcenter()
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
-    }
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly
 }
 
 dependencies {
+    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     annotationProcessor "io.micronaut:micronaut-inject-java"
-    compile "io.micronaut:micronaut-function-aws"
-    compile "io.micronaut:micronaut-inject"
-    compile "io.micronaut:micronaut-validation"
-    compile "io.micronaut:micronaut-runtime"
-    compileOnly "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "io.micronaut:micronaut-function-aws"
 
-    runtimeOnly "io.micronaut:micronaut-graal"
-    runtime "ch.qos.logback:logback-classic:1.2.3"
-    runtime "com.amazonaws:aws-lambda-java-log4j2:1.0.0"
-    runtime "org.apache.logging.log4j:log4j-slf4j-impl:2.9.1"
-
-    testCompile "io.micronaut:micronaut-function-client"
-    testCompile "io.micronaut:micronaut-inject-java"
-    testCompile "junit:junit:4.12"
-    testCompile "org.hamcrest:hamcrest-all:1.3"
+    //tag::http-client[]
+    implementation "io.micronaut:micronaut-http-client"
+    //end::http-client[]
 
     //tag::graaldependencies[]
     compileOnly "com.oracle.substratevm:svm"
     annotationProcessor "io.micronaut:micronaut-graal"
     //end::graaldependencies[]
 
+    runtimeOnly "com.amazonaws:aws-lambda-java-log4j2:1.0.0"
+    runtimeOnly "org.apache.logging.log4j:log4j-slf4j-impl:2.9.1"
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testImplementation "io.micronaut:micronaut-function-client"
+    testImplementation "io.micronaut:micronaut-inject-java"
+
     //tag::testdependencies[]
     testRuntime "io.micronaut:micronaut-http-server-netty"
     testRuntime "io.micronaut:micronaut-function-web"
     //end::testdependencies[]
 
-    //tag::http-client[]
-    compile "io.micronaut:micronaut-http-client"
-    //end::http-client[]
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testRuntimeOnly "io.micronaut:micronaut-http-server-netty"
+    testRuntimeOnly "io.micronaut:micronaut-function-web"
+}
+
+test.classpath += configurations.developmentOnly
+shadowJar {
+    transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer)
+}
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
 }
 
 shadowJar {
     mergeServiceFiles()
 }
 
-run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
-shadowJar {
-    transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer)
-}
+run.classpath += configurations.developmentOnly
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 mainClassName = "io.micronaut.function.executor.FunctionApplication"
 applicationDefaultJvmArgs = [""]
 
@@ -89,7 +88,7 @@ jar {
 }
 //end::archivebasename[]
 
-if(new File("${System.getProperty("user.home")}/.aws/credentials").exists()) {
+if (new File("${System.getProperty("user.home")}/.aws/credentials").exists()) {
     task deploy(type: jp.classmethod.aws.gradle.lambda.AWSLambdaMigrateFunctionTask, dependsOn: shadowJar) {
         functionName = "vies-vat-validator"
         handler = "io.micronaut.function.aws.MicronautRequestStreamHandler"
@@ -99,12 +98,4 @@ if(new File("${System.getProperty("user.home")}/.aws/credentials").exists()) {
         memorySize = 256
         timeout = 60
     }
-
-}
-compileJava.options.compilerArgs += '-parameters'
-compileTestJava.options.compilerArgs += '-parameters'
-
-tasks.withType(JavaCompile){
-    options.encoding = "UTF-8"
-    options.compilerArgs.add('-parameters')
 }
