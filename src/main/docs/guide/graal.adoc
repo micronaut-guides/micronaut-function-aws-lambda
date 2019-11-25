@@ -22,8 +22,9 @@ The following steps were required:
 
 [source, bash]
 ----
-sdk install java 1.0.0-rc-15-grl
-sdk use java 1.0.0-rc-15-grl
+sdk install java 19.2.1-grl
+sdk use java 19.2.1-grl
+gu install native-image
 ----
 
 NOTE: You may need to be in the latest version of http://sdkman.io[sdkman.io] to see Graal as a java candidate.

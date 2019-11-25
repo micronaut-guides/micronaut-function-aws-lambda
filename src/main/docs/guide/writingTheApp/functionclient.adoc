@@ -25,7 +25,7 @@ Modify `build.gradle` to add `function-client` and `com.amazonaws:aws-java-sdk-l
 [source,java]
 .invoice/build.gradle
 ----
-include::{sourceDir}/invoice/build.gradle[tag=function-client]
+include::{sourceDir}/invoice/build.gradle[tag=function-client,indent=0]
 ----
 
 Also modify `src/main/resources/application.yml` and the define a function with the same name `vies-vat-validator` as the one we deployed to AWS Lambda:

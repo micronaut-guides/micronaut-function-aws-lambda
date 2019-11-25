@@ -16,9 +16,10 @@ Create a JUnit test which verifies the logic:
 include::{sourceDir}/invoice/src/test/java/example/micronaut/InvoiceControllerTest.java[]
 ----
 
-<1> To run the application from a unit test you can use the http://docs.micronaut.io/snapshot/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface.
-<2> Register a `RxHttpClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
-<3> Verify the bean for interface `VatValidator` is `VatValidatorMock`.
+<1> Annotate the class with `@MicronautTest` to let Micronaut starts the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
+<2> Inject the `RxHttpClient` bean in the application context.
+<3> Inject the `EmbeddedServer` bean.
+<4> Verify the bean for interface `VatValidator` is `VatValidatorMock`.
 
 If you are curious about how the 11.55 is calculated.
 Given a 21% VAT.

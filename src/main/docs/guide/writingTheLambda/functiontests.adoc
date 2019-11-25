@@ -3,7 +3,7 @@
 [source,groovy]
 .vies-vat-validator/build.gradle
 ----
-include::{sourceDir}/vies-vat-validator/build.gradle[tag=testdependencies]
+include::{sourceDir}/vies-vat-validator/build.gradle[tag=testdependencies,indent=0]
 ----
 
 Because of that, testing your functions is really easy.
@@ -25,3 +25,5 @@ Modify `ViesVatValidatorFunctionTest.java`:
 ----
 include::{sourceDir}/vies-vat-validator/src/test/java/example/micronaut/ViesVatValidatorFunctionTest.java[]
 ----
+<1> Annotate the class with `@MicronautTest` to let Micronaut starts the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
+<2> Inject the `ViesVatValidatorClient` bean in the application context.

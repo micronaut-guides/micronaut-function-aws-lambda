@@ -1,13 +1,15 @@
-Micronaut’s validation is built on with the standard framework – JSR 380, also known as Bean Validation 2.0.
+Micronaut's validation is built on with the standard framework – JSR 380, also known as Bean Validation 2.0.
 
-Hibernate Validator is a reference implementation of the validation API.
+Hibernate Validator is a reference implementation of the validation API. Starting with Micronaut 1.2, Micronaut
+https://docs.micronaut.io/latest/guide/index.html#beanValidation[has built-in support for validation beans] that
+are annotated with `javax.validation` annotations.
 
 Add the next snippet to `build.gradle`
 
 [source,java]
-.invoice/build.gradle
+.build.gradle
 ----
-include::{sourceDir}/invoice/build.gradle[tag=validation]
+include::{sourceDir}/invoice/build.gradle[tag=validator,indent=0]
 ----
 
 
@@ -17,13 +19,9 @@ include::{sourceDir}/invoice/build.gradle[tag=validation]
 include::{sourceDir}/invoice/src/main/java/example/micronaut/InvoiceController.java[]
 ----
 
-<1> Add `@Validated` annotation at the class level to any class that requires validation.
-<2> The class is defined as a controller with the `@Controller` annotation mapped to the path `/invoice`.
-<3> Constructor injection of a configuration property.
-<4> Constructor injection of a bean.
-<5> The `@Post` annotation is used to map the `calculateVat` method to all requests to `/invoice/vat` that use an HTTP POST.
-<6> Add `@Valid` to any method parameter which requires validation. Use a POGO supplied as a JSON payload in the request to populate the invoice.
-<7> This invokes the function in AWS Lambda.
-
-
-
+<1> The class is defined as a controller with the `@Controller` annotation mapped to the path `/invoice`.
+<2> Constructor injection of a configuration property.
+<3> Constructor injection of a bean.
+<4> The `@Post` annotation is used to map the `calculateVat` method to all requests to `/invoice/vat` that use an HTTP POST.
+<5> Add `@Valid` to any method parameter which requires validation. Use a POGO supplied as a JSON payload in the request to populate the invoice.
+<6> This invokes the function in AWS Lambda.

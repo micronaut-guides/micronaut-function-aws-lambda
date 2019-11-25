@@ -23,13 +23,13 @@ public class InvoiceControllerTest {
     RxHttpClient rxHttpClient; // <2>
 
     @Inject
-    EmbeddedServer server;
+    EmbeddedServer server; // <3>
 
     @Test
     public void testBooksController() {
 
         VatValidator bean = server.getApplicationContext().getBean(VatValidator.class);
-        assertTrue(bean instanceof VatValidatorMock); // <3>
+        assertTrue(bean instanceof VatValidatorMock); // <4>
 
         List<InvoiceLine> lines = new ArrayList<InvoiceLine>();
         lines.add(new InvoiceLine("1491950358", 2, new BigDecimal(19.99)));

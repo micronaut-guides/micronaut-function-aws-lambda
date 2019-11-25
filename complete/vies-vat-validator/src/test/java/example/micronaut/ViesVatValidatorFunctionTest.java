@@ -8,11 +8,11 @@ import javax.inject.Inject;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@MicronautTest
+@MicronautTest // <1>
 public class ViesVatValidatorFunctionTest {
 
     @Inject
-    ViesVatValidatorClient client;
+    ViesVatValidatorClient client; // <2>
 
     @Test
     public void testViesVatValidatorFunction() throws Exception {
