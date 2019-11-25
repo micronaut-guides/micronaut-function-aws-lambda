@@ -1,42 +1,29 @@
 package example.micronaut;
 
-import io.micronaut.context.ApplicationContext;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.client.RxHttpClient;
+import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.server.EmbeddedServer;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import io.micronaut.test.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@MicronautTest // <1>
 public class InvoiceControllerTest {
 
-    private static EmbeddedServer server;
-    private static RxHttpClient rxHttpClient;
+    @Inject
+    @Client("/")
+    RxHttpClient rxHttpClient; // <2>
 
-    @BeforeClass
-    public static void setupServer() {
-        server = ApplicationContext.run(EmbeddedServer.class); // <1>
-        rxHttpClient = server
-                .getApplicationContext()
-                .createBean(RxHttpClient.class, server.getURL()); // <2>
-    }
-
-    @AfterClass
-    public static void stopServer() {
-        if (server != null) {
-            server.stop();
-        }
-        if (rxHttpClient != null) {
-            rxHttpClient.stop();
-        }
-    }
+    @Inject
+    EmbeddedServer server;
 
     @Test
     public void testBooksController() {
@@ -52,7 +39,6 @@ public class InvoiceControllerTest {
         Taxes rsp = rxHttpClient.toBlocking().retrieve(request, Taxes.class);
         BigDecimal expected = new BigDecimal("11.55");
         assertEquals(expected, rsp.getVat());
-
 
         invoice.setVatNumber("B99999999");
         rsp = rxHttpClient.toBlocking().retrieve(request, Taxes.class);
