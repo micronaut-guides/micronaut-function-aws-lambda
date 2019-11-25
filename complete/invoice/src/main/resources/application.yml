@@ -1,31 +1,31 @@
 #tag::awsapigateway[]
 micronaut:
-    http:
-        services:
-            viesvatvalidator: # <1>
-                urls:
-                    - "https://8ah5p89xof.execute-api.eu-west-3.amazonaws.com"
-                stage: "beta"
-    application:
-        name: invoice
-    server:
-        port: 8080
+  http:
+    services:
+      viesvatvalidator: # <1>
+        urls:
+          - "https://8ah5p89xof.execute-api.eu-west-3.amazonaws.com"
+        stage: "beta"
+  application:
+    name: invoice
+  server:
+    port: 8080
 #end::awsapigateway[]
 
 #tag::vat[]
 vat:
-    percentage: 0.21
-    scale: 2
-    retry:
-        attempts: 5
-        delay: 5s
+  percentage: 0.21
+  scale: 2
+  retry:
+    attempts: 5
+    delay: 5s
 #end::vat[]
 #tag::aws[]
 aws:
-    lambda:
-        functions:
-            vat:
-                functionName: vies-vat-validator
-                qualifer: vat
-        region: eu-west-3 # Paris Region
+  lambda:
+    functions:
+      vat:
+        functionName: vies-vat-validator
+        qualifer: vat
+    region: eu-west-3 # Paris Region
 #end::aws[]
