@@ -25,3 +25,5 @@ graal:
   title: Running the Function on Graal Native Image
 nextSteps:
   title: Next Steps
+help:
+  title: Help with Micronaut  
