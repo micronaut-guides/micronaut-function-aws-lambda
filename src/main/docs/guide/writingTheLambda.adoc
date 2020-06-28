@@ -1,3 +1,3 @@
 Create the function:
 
-`mn create-function example.micronaut.vies-vat-validator`
+`mn create-function-app example.micronaut.vies-vat-validator`
