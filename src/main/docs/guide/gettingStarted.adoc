@@ -1,3 +1,5 @@
+include::{commondir}/common-mn2-lambda.adoc[]
+
 Lets describe the microservices you are going to build through the tutorial.
 
 * `vies-vat-validator` - A Function which you will build with Micronaut and deploy to https://aws.amazon.com/lambda/[AWS Lambda].
